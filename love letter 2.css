@@ -1,0 +1,295 @@
+/* --- CONFIGURACIÓN BASE Y RESET --- */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f0e6f6;
+  /* Centrado vertical y horizontal absoluto */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* Soporte para móviles modernos (barra de navegación dinámica) */
+  min-height: 100dvh; 
+  overflow: hidden; /* Evita scrollbars por los pétalos */
+  font-family: 'Dancing Script', cursive;
+}
+
+/* --- CONTENEDOR DEL SOBRE --- */
+.envlope-wrapper {
+  position: relative;
+  /* Quitamos altura fija, dejamos que el contenido mande */
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Un poco de margen abajo para los botones */
+  margin-bottom: 30px; 
+}
+
+#envelope {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  background-color: #d9534f;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  /* Quitamos top: 150px y usamos margin auto relativo */
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  /* Escala un poco en móviles grandes si es necesario */
+  transform-origin: center;
+}
+
+/* Ajuste para pantallas muy pequeñas (iPhone SE, etc) */
+@media (max-width: 350px) {
+  #envelope { transform: scale(0.9); }
+}
+
+/* --- PARTES DEL SOBRE --- */
+.front {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 3;
+}
+
+.flap {
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-bottom: 82px solid transparent;
+  border-top: 98px solid #d9534f;
+  transform-origin: top;
+  pointer-events: none;
+}
+
+.pocket {
+  border-left: 140px solid #f5a3a2;
+  border-right: 140px solid #f5a3a2;
+  border-bottom: 90px solid #ff6f61;
+  border-top: 90px solid transparent;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+/* --- CARTA INTERNA --- */
+.letter {
+  position: relative;
+  background-color: #fff;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 90%;
+  top: 5%;
+  border-radius: 6px;
+  box-shadow: 0 2px 26px rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 15px 10px;
+  overflow: hidden;
+}
+
+.words {
+  position: relative;
+  width: auto;
+  max-width: 90%;
+  padding: 5px 10px;
+  background-color: #ffe6e6;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.words.line1 { font-size: 0.9rem; color: #d9534f; font-weight: bold; margin-bottom: 5px; }
+.words.line2 { font-size: 0.8rem; } /* Texto un poco más chico para que quepa */
+.words.line3 { font-size: 0.9rem; }
+.words.line4 { font-size: 0.9rem; margin-bottom: 5px; }
+
+/* --- BOTONES --- */
+.reset {
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+  /* Flexbox para acomodar botones en móviles */
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 10px;
+  padding: 0 20px;
+}
+
+.reset button {
+  font-weight: 800;
+  transition: all 0.1s linear;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para legibilidad */
+  border: solid 2px #d9534f;
+  border-radius: 50px; /* Más redondeado estilo iOS */
+  color: #d9534f;
+  display: inline-block;
+  font-size: 16px; /* Texto más grande para lectura fácil */
+  text-transform: uppercase;
+  padding: 12px 24px; /* Área táctil más grande */
+  cursor: pointer;
+  min-width: 100px;
+  /* Evita el doble tap zoom en móviles */
+  touch-action: manipulation; 
+  font-family: 'Dancing Script', cursive; /* Mantener estilo */
+}
+
+.reset button:active { transform: scale(0.95); }
+
+#response-yes {
+  background-color: #d9534f !important;
+  color: white !important;
+  border: 2px solid #c9302c;
+  box-shadow: 0 4px 10px rgba(217, 83, 79, 0.4);
+}
+
+#story-btn {
+    border-color: #8B4513;
+    color: #8B4513;
+}
+
+/* --- ANIMACIONES SOBRE --- */
+.open .flap { transform: rotateX(180deg); transition: transform 0.4s ease, z-index 0.6s; z-index: 1; }
+.close .flap { transform: rotateX(0deg); transition: transform 0.4s 0.6s ease, z-index 1s; z-index: 5; }
+.close .letter { transform: translateY(0px); transition: transform 0.4s ease, z-index 1s; z-index: 1; }
+.open .letter { transform: translateY(-120px); transition: transform 0.4s 0.6s ease, z-index 0.6s; z-index: 2; }
+
+/* Corazones flotantes del sobre */
+.hearts { position: absolute; top: 90px; left: 0; right: 0; z-index: 2; }
+.heart { position: absolute; bottom: 0; right: 10%; pointer-events: none; }
+.heart:before, .heart:after {
+  position: absolute; content: ""; left: 50px; top: 0; width: 50px; height: 80px;
+  background: #e60073; border-radius: 50px 50px 0 0; transform: rotate(-45deg); transform-origin: 0 100%;
+}
+.heart:after { left: 0; transform: rotate(45deg); transform-origin: 100% 100%; }
+.close .heart { opacity: 0; animation: none; }
+.a1 { left: 20%; transform: scale(0.6); opacity: 1; animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate; animation-fill-mode: forwards; animation-delay: 0.7s; }
+.a2 { left: 55%; transform: scale(1); opacity: 1; animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate; animation-fill-mode: forwards; animation-delay: 0.7s; }
+.a3 { left: 10%; transform: scale(0.8); opacity: 1; animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate; animation-fill-mode: forwards; animation-delay: 0.7s; }
+
+@keyframes slideUp { 0% { top: 0; } 100% { top: -600px; } }
+@keyframes sideSway { 0% { margin-left: 0px; } 100% { margin-left: 50px; } }
+
+/* --- OVERLAY DE HISTORIA RESPONSIVO --- */
+#story-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(180deg, #fff0f5 0%, #ffe6e6 100%);
+    z-index: 1000;
+    display: none;
+    flex-direction: row; /* Por defecto en fila (Desktop) */
+    overflow: hidden;
+    /* Respetar safe areas del iPhone (notch) */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+#close-story {
+    position: absolute; top: max(20px, env(safe-area-inset-top)); right: 20px;
+    background: white; border: none; color: #d9534f;
+    font-size: 1.5rem; border-radius: 50%; width: 40px; height: 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer; z-index: 1005;
+}
+
+.story-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Dancing Script', cursive;
+}
+
+/* Texto de la historia */
+.story-text {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1003; /* Sobre los pétalos si es necesario */
+}
+
+.story-text h2 { font-size: 3rem; color: #d9534f; margin-bottom: 20px; line-height: 1; }
+.story-text p { font-size: 1.6rem; margin: 10px 0; color: #555; }
+
+.timer-box {
+    margin-top: 30px; padding: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px); /* Efecto vidrio moderno */
+    border-radius: 15px; 
+    border: 1px solid rgba(255,255,255,0.8);
+}
+#timer { font-size: 1.5rem; font-weight: bold; color: #d9534f; margin-top: 5px; }
+
+/* Contenedor del Árbol */
+.tree-container {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+}
+
+#tree-svg {
+    width: 100%; height: 90%;
+    overflow: visible;
+}
+
+.falling-petal {
+    position: absolute;
+    z-index: 1002;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
+/* --- MEDIA QUERIES: AJUSTE PARA MÓVIL (VERTICAL) --- */
+@media (max-width: 900px) {
+    #story-overlay {
+        flex-direction: column; /* Cambiar a columna en móviles */
+    }
+
+    .story-content {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .story-text {
+        flex: 0 0 auto; /* Altura automática según contenido */
+        width: 100%;
+        padding: 20px;
+        padding-top: 60px; /* Espacio para el botón de cerrar */
+        box-sizing: border-box;
+        text-align: center;
+        background: rgba(255,240,245, 0.8); /* Fondo suave para leer sobre pétalos */
+    }
+
+    .story-text h2 { font-size: 2.2rem; margin-bottom: 10px; }
+    .story-text p { font-size: 1.2rem; margin: 5px 0; }
+    
+    .timer-box { 
+        margin-top: 15px; 
+        padding: 10px;
+    }
+    #timer { font-size: 1.2rem; }
+
+    .tree-container {
+        flex: 1; /* El árbol toma el resto del espacio disponible abajo */
+        width: 100%;
+        overflow: hidden; /* Evita scroll lateral */
+    }
+    
+    #tree-svg {
+        height: 100%; /* Llenar contenedor verticalmente */
+        transform: scale(1.1) translateY(20px); /* Ajuste visual para móviles */
+    }
+}

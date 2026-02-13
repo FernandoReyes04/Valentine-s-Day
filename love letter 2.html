@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Love letter for crush</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <link rel="stylesheet" href="love letter 2.css" />
+  </head>
+  <body>
+    <div class="envlope-wrapper">
+      <div id="envelope" class="close">
+        <div class="front flap"></div>
+        <div class="front pocket"></div>
+        <div class="letter">
+          <div class="words line1">Para mi Gabi❤️</div>
+          <div class="words line2">Querida princesa, mi niña hermosa</div>
+          <div class="words line3">¿Quieres ser mi San Valentin?</div>
+          <div class="words line4">¿Hoy y toda la vida?</div>
+        </div>
+        <div class="hearts">
+          <div class="heart a1"></div>
+          <div class="heart a2"></div>
+          <div class="heart a3"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="reset">
+      <button id="open">Open</button>
+      <button id="reset">Close</button>
+      <button id="response-yes" style="display: none;">¡SI! ❤️</button>
+      
+      <button id="story-btn">Nuestra Historia</button>
+    </div>
+
+    <div id="story-overlay">
+      <button id="close-story">X</button>
+      <div class="story-content">
+        <div class="story-text">
+            <h2 class="title-anim">Para el amor de mi vida:</h2>
+            <p class="line-anim">Mi unica razón de vivir,</p>
+            <p class="line-anim">es estar a tu lado.</p>
+            <p class="line-anim">Una vida eterna contigo</p>
+            <p class="line-anim">es mi mayor sueño por cumplir.</p>
+            
+            <div class="timer-box line-anim">
+                <p>Mi amor por ti comenzó hace...</p>
+                <div id="timer">
+                    <span id="days">00</span> días 
+                    <span id="hours">00</span> horas 
+                    <span id="minutes">00</span> minutos 
+                    <span id="seconds">00</span> segundos
+                </div>
+            </div>
+        </div>
+        
+        <div class="tree-container">
+            <svg id="tree-svg" viewBox="0 0 500 600" style="overflow: visible" preserveAspectRatio="xMidYBottom slice">
+                <g id="trunk-group">
+                    <path class="trunk" d="M250,600 C250,600 280,450 250,400 C220,350 260,300 250,200" stroke="#8B4513" stroke-width="12" fill="none" />
+                    <path class="branch" d="M250,400 C250,400 200,350 180,300" stroke="#8B4513" stroke-width="8" fill="none" />
+                    <path class="branch" d="M250,350 C250,350 300,300 320,250" stroke="#8B4513" stroke-width="8" fill="none" />
+                    <path class="branch" d="M250,280 C250,280 200,220 190,180" stroke="#8B4513" stroke-width="6" fill="none" />
+                    <path class="branch" d="M250,240 C250,240 290,180 300,140" stroke="#8B4513" stroke-width="6" fill="none" />
+                    <path class="branch" d="M250,200 C250,200 250,150 250,100" stroke="#8B4513" stroke-width="6" fill="none" />
+                </g>
+                <g id="leaves-group"></g>
+            </svg>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="love letter 2.js"></script>
+  </body>
+</html>
